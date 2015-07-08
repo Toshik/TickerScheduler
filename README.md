@@ -20,10 +20,16 @@ Simple scheduler for ESP8266 Arduino based on Ticker
 
 | Param | Description | 
 | --- | --- |
-|  i  |  Ticker ID  |
-| period  | period in ms  |
-| *f | task callback pointer |
-| shouldFireNow|  true if you want to execute task right after adding |
+|  i  |  Task ID  |
+| period  | Task execution eriod in ms  |
+| *f | Task callback pointer |
+| shouldFireNow|  ```true``` if you want to execute task right after first scheduler update |
+
+**Returns**:
+
+```true``` - task added sucessfully
+
+```false``` - task was not added 
 
 **Example**:
 
@@ -37,6 +43,16 @@ Simple scheduler for ESP8266 Arduino based on Ticker
 
 ```boolean del(uint i)```
 
+**Returns**:
+
+```true``` - task removed sucessfully
+
+```false``` - task was not removed
+
 | Param | Description | 
 | --- | --- |
-|  i  |  Ticker ID  |
+|  i  |  Task ID  |
+
+###TODO###
+* Task callback parameters support
+* ...
