@@ -1,13 +1,16 @@
 #include <Ticker.h>
 #include <stdint.h>
+#include <functional>
 
 void tickerFlagHandle(volatile bool * flag);
+
+typedef std::function<void(void)> tscallback_t;
 
 struct TickerSchedulerItem
 {
     Ticker t;
     volatile bool flag = false;
-    void(*cb)(void);
+    tscallback_t cb;
     volatile bool is_used = false;
 };
 
@@ -17,15 +20,15 @@ private:
     uint size;
     TickerSchedulerItem *items = NULL;
 
-    void handleTicker(void(*f)(void), volatile bool * flag);
+    void handleTicker(tscallback_t, volatile bool * flag);
 
 public:
     TickerScheduler(uint size);
     ~TickerScheduler();
     
-    boolean add(uint i, uint32_t period, void(*f)(void), boolean shouldFireNow = false);
+    boolean add(uint i, uint32_t period, tscallback_t, boolean shouldFireNow = false);
 
-    boolean del(uint i);
+    boolean remove(uint i);
 
     void update();
 };

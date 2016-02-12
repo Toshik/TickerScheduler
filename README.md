@@ -16,18 +16,18 @@ Simple scheduler for ESP8266 Arduino based on Ticker
 
 ###Add task###
 
-```boolean add(uint i, uint32_t period, void(*f)(void), boolean shouldFireNow = false)```
+```    boolean add(uint i, uint32_t period, tscallback_t à, boolean shouldFireNow = false); ```
 
 | Param | Description | 
 | --- | --- |
 |  i  |  Ticker ID  |
 | period  | period in ms  |
-| *f | task callback pointer |
-| shouldFireNow|  true if you want to execute task right after adding |
+| f | task callback pointer type |
+| shouldFireNow|  true if you want to execute task right after adding or wait next scheduled start |
 
 **Example**:
 
-```ts.add(0, 3000, &sendData)```
+```ts.add(0, 3000, sendData)```
 
 ###Execute scheduler in ```loop()```###
 
@@ -35,7 +35,7 @@ Simple scheduler for ESP8266 Arduino based on Ticker
 
 ###Remove task###
 
-```boolean del(uint i)```
+```boolean remove(uint i)```
 
 | Param | Description | 
 | --- | --- |

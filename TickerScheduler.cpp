@@ -17,7 +17,7 @@ TickerScheduler::~TickerScheduler()
 {
     for (uint i = 0; i < this->size; i++)
     {
-        this->del(i);
+        this->remove(i);
         yield();
     }
 
@@ -26,19 +26,19 @@ TickerScheduler::~TickerScheduler()
     this->size = 0;
 }
 
-void TickerScheduler::handleTicker(void(*f)(void), volatile bool * flag)
+void TickerScheduler::handleTicker(tscallback_t f, volatile bool * flag)
 {
     if (*flag)
     {
         yield();
         *flag = false;
         yield();
-        (*f)();
+        f();
         yield();
     }
 }
 
-boolean TickerScheduler::add(uint i, uint32_t period, void(*f)(void), boolean shouldFireNow)
+boolean TickerScheduler::add(uint i, uint32_t period, tscallback_t f, boolean shouldFireNow)
 {
     if (i >= this->size)
         return false;
@@ -54,7 +54,7 @@ boolean TickerScheduler::add(uint i, uint32_t period, void(*f)(void), boolean sh
     return true;
 }
 
-boolean TickerScheduler::del(uint i)
+boolean TickerScheduler::remove(uint i)
 {
     if (i >= this->size)
         return false;
