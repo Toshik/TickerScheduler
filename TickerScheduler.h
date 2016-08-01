@@ -11,6 +11,7 @@ struct TickerSchedulerItem
     Ticker t;
     volatile bool flag = false;
     tscallback_t cb;
+    uint32_t period;
     volatile bool is_used = false;
 };
 
@@ -26,9 +27,11 @@ public:
     TickerScheduler(uint size);
     ~TickerScheduler();
     
-    boolean add(uint i, uint32_t period, tscallback_t, boolean shouldFireNow = false);
-
-    boolean remove(uint i);
-
+    bool add(uint i, uint32_t period, tscallback_t, boolean shouldFireNow = false);
+    bool remove(uint i);
+    bool enable(uint i);
+    bool disable(uint i);
+    void enableAll();
+    void disableAll();
     void update();
 };
