@@ -1,11 +1,5 @@
 #include "TickerScheduler.h"
 
-void tickerFlagHandle(volatile bool * flag)
-{
-    if (!*flag)
-        *flag = true;
-}
-
 TickerScheduler::TickerScheduler(uint8_t size)
 {
     this->items = new TickerSchedulerItem[size];
@@ -23,6 +17,12 @@ TickerScheduler::~TickerScheduler()
     delete[] this->items;
     this->items = NULL;
     this->size = 0;
+}
+
+void TickerScheduler::handleTickerFlag(volatile bool * flag)
+{
+	if (!*flag)
+		*flag = true;
 }
 
 void TickerScheduler::handleTicker(tscallback_t f, volatile bool * flag)
@@ -80,7 +80,8 @@ bool TickerScheduler::enable(uint8_t i)
     if (i >= this->size || !this->items[i].is_used)
         return false;
 
-    this->items[i].t.attach_ms(this->items[i].period, tickerFlagHandle, &this->items[i].flag);
+	volatile bool * flag = &this->items[i].flag;
+	this->items[i].t.attach_ms(this->items[i].period, TickerScheduler::handleTickerFlag, flag);
 
     return true;
 }

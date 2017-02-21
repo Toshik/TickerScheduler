@@ -70,6 +70,7 @@ private:
     TickerSchedulerItem *items = NULL;
 
     void handleTicker(tscallback_t, volatile bool * flag);
+	static void handleTickerFlag(volatile bool * flag);
 
 public:
     TickerScheduler(uint8_t size);
