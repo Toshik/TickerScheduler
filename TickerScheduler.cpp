@@ -25,24 +25,25 @@ void TickerScheduler::handleTickerFlag(volatile bool * flag)
 		*flag = true;
 }
 
-void TickerScheduler::handleTicker(tscallback_t f, volatile bool * flag)
+void TickerScheduler::handleTicker(tscallback_t f, void * arg, volatile bool * flag)
 {
     if (*flag)
     {
         yield();
         *flag = false;
         yield();
-        f();
+        f(arg);
         yield();
     }
 }
 
-bool TickerScheduler::add(uint8_t i, uint32_t period, tscallback_t f, boolean shouldFireNow)
+bool TickerScheduler::add(uint8_t i, uint32_t period, tscallback_t f, void* arg, boolean shouldFireNow)
 {
     if (i >= this->size || this->items[i].is_used)
         return false;
 
     this->items[i].cb = f;
+    this->items[i].cb_arg = arg;
     this->items[i].flag = shouldFireNow;
     this->items[i].period = period;
     this->items[i].is_used = true;
@@ -108,7 +109,7 @@ void TickerScheduler::update()
 			this->items[i].t.Tick();
 			#endif
 
-			handleTicker(this->items[i].cb, &this->items[i].flag);
+			handleTicker(this->items[i].cb, this->items[i].cb_arg, &this->items[i].flag);
 		}
         yield();
     }

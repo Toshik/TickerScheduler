@@ -51,7 +51,7 @@ void tickerFlagHandle(volatile bool * flag);
 #ifdef _GLIBCXX_FUNCTIONAL
 typedef std::function<void(void)> tscallback_t;
 #else
-typedef void(*tscallback_t)(void);
+typedef void(*tscallback_t)(void*);
 #endif
 
 struct TickerSchedulerItem
@@ -59,6 +59,7 @@ struct TickerSchedulerItem
     Ticker t;
     volatile bool flag = false;
     tscallback_t cb;
+	void * cb_arg;
     uint32_t period;
     volatile bool is_used = false;
 };
@@ -69,14 +70,14 @@ private:
 	uint8_t size;
     TickerSchedulerItem *items = NULL;
 
-    void handleTicker(tscallback_t, volatile bool * flag);
+    void handleTicker(tscallback_t, void *, volatile bool * flag);
 	static void handleTickerFlag(volatile bool * flag);
 
 public:
     TickerScheduler(uint8_t size);
     ~TickerScheduler();
     
-    bool add(uint8_t i, uint32_t period, tscallback_t, boolean shouldFireNow = false);
+    bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean shouldFireNow = false);
     bool remove(uint8_t i);
     bool enable(uint8_t i);
     bool disable(uint8_t i);
