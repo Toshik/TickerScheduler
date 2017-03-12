@@ -49,7 +49,7 @@ public:
 void tickerFlagHandle(volatile bool * flag);
 
 #ifdef _GLIBCXX_FUNCTIONAL
-typedef std::function<void(void)> tscallback_t;
+typedef std::function<void(void*)> tscallback_t;
 #else
 typedef void(*tscallback_t)(void*);
 #endif
