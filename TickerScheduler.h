@@ -28,7 +28,7 @@ public:
 
 	void detach()
 	{
-		this->is_attached = true;
+		this->is_attached = false;
 	}
 
 	template<typename TArg> void attach_ms(uint32_t milliseconds, void(*callback)(TArg), TArg arg)
