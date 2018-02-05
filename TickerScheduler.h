@@ -62,6 +62,7 @@ struct TickerSchedulerItem
 	void * cb_arg;
     uint32_t period;
     volatile bool is_used = false;
+    volatile bool repeat = true;
 };
 
 class TickerScheduler
@@ -71,13 +72,14 @@ private:
     TickerSchedulerItem *items = NULL;
 
     void handleTicker(tscallback_t, void *, volatile bool * flag);
+    void handleTicker(TickerSchedulerItem * item);
 	static void handleTickerFlag(volatile bool * flag);
 
 public:
     TickerScheduler(uint8_t size);
     ~TickerScheduler();
     
-    bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean shouldFireNow = false);
+    bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean repeat = true);
     bool remove(uint8_t i);
     bool enable(uint8_t i);
     bool disable(uint8_t i);
