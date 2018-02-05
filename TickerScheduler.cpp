@@ -68,6 +68,11 @@ bool TickerScheduler::add(uint8_t i, uint32_t period, tscallback_t f, void* arg,
     return true;
 }
 
+bool TickerScheduler::once(uint8_t i, uint32_t period, tscallback_t f, void* arg)
+{
+    return add(i, period, f, arg, false);
+}
+
 bool TickerScheduler::remove(uint8_t i)
 {
     if (i >= this->size || !this->items[i].is_used)
@@ -128,7 +133,6 @@ void TickerScheduler::update()
 			this->items[i].t.Tick();
 			#endif
 
-            // handleTicker(this->items[i].cb, this->items[i].cb_arg, &this->items[i].flag);
 			handleTicker(&this->items[i]);
 		}
         yield();

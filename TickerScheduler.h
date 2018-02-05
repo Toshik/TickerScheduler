@@ -38,6 +38,14 @@ public:
 		this->callback_argument = arg;
 		this->is_attached = true;
 	}
+
+	template<typename TArg> void once_ms(uint32_t milliseconds, void(*callback)(TArg), TArg arg)
+	{
+		this->period = milliseconds;
+		this->callback = callback;
+		this->callback_argument = arg;
+		this->is_attached = true;
+	}
 };
 #endif
 
@@ -80,6 +88,7 @@ public:
     ~TickerScheduler();
     
     bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean repeat = true);
+    bool once(uint8_t i, uint32_t period, tscallback_t, void *);
     bool remove(uint8_t i);
     bool enable(uint8_t i);
     bool disable(uint8_t i);
