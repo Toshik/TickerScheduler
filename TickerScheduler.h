@@ -1,7 +1,9 @@
 #ifndef TICKERSCHEDULER_H
 #define TICKERSCHEDULER_H
 
-#include <arduino.h>
+#if defined(ARDUINO) && ARDUINO >= 100
+    #include "Arduino.h"
+#endif
 #include <stdint.h>
 
 
