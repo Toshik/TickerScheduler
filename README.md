@@ -1,5 +1,5 @@
 # TickerScheduler
-Simple scheduler for ESP8266 Arduino based on Ticker
+Simple scheduler for ESP8266 & ESP32 Arduino based on Ticker
 
 ### Initialization
 
