@@ -1,0 +1,22 @@
+# Created by https://www.gitignore.io/api/platformio,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=platformio,visualstudiocode
+
+### PlatformIO ###
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.vscode/ipch/*
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/platformio,visualstudiocode
