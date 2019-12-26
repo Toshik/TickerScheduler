@@ -40,6 +40,14 @@ public:
 		this->callback_argument = arg;
 		this->is_attached = true;
 	}
+
+	template<typename TArg> void once_ms(uint32_t milliseconds, void(*callback)(TArg), TArg arg)
+	{
+		this->period = milliseconds;
+		this->callback = callback;
+		this->callback_argument = arg;
+		this->is_attached = true;
+	}
 };
 #endif
 
@@ -64,6 +72,7 @@ struct TickerSchedulerItem
 	void * cb_arg;
     uint32_t period;
     volatile bool is_used = false;
+    volatile bool repeat = true;
 };
 
 class TickerScheduler
@@ -73,13 +82,15 @@ private:
     TickerSchedulerItem *items = NULL;
 
     void handleTicker(tscallback_t, void *, volatile bool * flag);
+    void handleTicker(TickerSchedulerItem * item);
 	static void handleTickerFlag(volatile bool * flag);
 
 public:
     TickerScheduler(uint8_t size);
     ~TickerScheduler();
     
-    bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean shouldFireNow = false);
+    bool add(uint8_t i, uint32_t period, tscallback_t, void *, boolean repeat = true);
+    bool once(uint8_t i, uint32_t period, tscallback_t, void *);
     bool remove(uint8_t i);
     bool enable(uint8_t i);
     bool disable(uint8_t i);
