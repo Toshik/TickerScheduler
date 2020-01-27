@@ -19,13 +19,13 @@ TickerScheduler::~TickerScheduler()
     this->size = 0;
 }
 
-void TickerScheduler::handleTickerFlag(volatile bool * flag)
+void TickerScheduler::handleTickerFlag(bool * flag)
 {
 	if (!*flag)
 		*flag = true;
 }
 
-void TickerScheduler::handleTicker(tscallback_t f, void * arg, volatile bool * flag)
+void TickerScheduler::handleTicker(tscallback_t f, void * arg, bool * flag)
 {
     if (*flag)
     {
@@ -81,7 +81,7 @@ bool TickerScheduler::enable(uint8_t i)
     if (i >= this->size || !this->items[i].is_used)
         return false;
 
-	volatile bool * flag = &this->items[i].flag;
+	bool * flag = &this->items[i].flag;
 	this->items[i].t.attach_ms(this->items[i].period, TickerScheduler::handleTickerFlag, flag);
 
     return true;
