@@ -59,7 +59,7 @@ typedef void(*tscallback_t)(void*);
 struct TickerSchedulerItem
 {
     Ticker t;
-    volatile bool flag = false;
+    bool flag = false;
     tscallback_t cb;
 	void * cb_arg;
     uint32_t period;
@@ -72,8 +72,8 @@ private:
 	uint8_t size;
     TickerSchedulerItem *items = NULL;
 
-    void handleTicker(tscallback_t, void *, volatile bool * flag);
-	static void handleTickerFlag(volatile bool * flag);
+    void handleTicker(tscallback_t, void *, bool * flag);
+    static void handleTickerFlag(bool * flag);
 
 public:
     TickerScheduler(uint8_t size);
