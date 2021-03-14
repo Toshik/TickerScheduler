@@ -1,0 +1,21 @@
+{
+  "name": "TickerScheduler",
+  "version": "1.0.0",
+  "description": "Simple scheduler for ESP8266 & ESP32 Arduino based on Ticker",
+  "keywords": "Scheduler Ticker Timing",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/Toshik/TickerScheduler"
+  },
+  "authors":
+  [
+    {
+      "name": "Toshik",
+      "url": "https://github.com/Toshik"
+    }
+  ],
+  "homepage": "https://github.com/Toshik/TickerScheduler",
+  "frameworks": ["arduino"],
+  "platforms": ["espressif32", "espressif8266"]
+}
