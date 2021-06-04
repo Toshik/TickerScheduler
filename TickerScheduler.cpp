@@ -78,11 +78,10 @@ bool TickerScheduler::disable(uint8_t i)
 
 bool TickerScheduler::enable(uint8_t i)
 {
-    if (i >= this->size || !this->items[i].is_used)
-        return false;
+    if (i >= this->size || !this->items[i].is_used) return false;
 
-	bool * flag = &this->items[i].flag;
-	this->items[i].t.attach_ms(this->items[i].period, TickerScheduler::handleTickerFlag, flag);
+    bool * flag = &this->items[i].flag;
+    this->items[i].t.attach_ms(this->items[i].period, TickerScheduler::handleTickerFlag, flag);
 
     return true;
 }
