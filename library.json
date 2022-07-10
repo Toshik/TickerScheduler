@@ -1,6 +1,6 @@
 {
   "name": "TickerScheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple scheduler for Arduino based boards. On ESP8266 & ESP32 it utilizes Ticker.",
   "keywords": "Scheduler Ticker Timing",
   "repository":
