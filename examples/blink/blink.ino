@@ -1,6 +1,6 @@
 #include <TickerScheduler.h>
 
-#define LED1 4
+#define LED1 13
 #define LED2 5
 
 TickerScheduler ts(2);
@@ -20,8 +20,8 @@ void setup() {
   pinMode(LED2, OUTPUT);
   digitalWrite(LED2, LOW);
   
-  ts.add(0, 1000, [&](void *) { blink1(); }, nullptr, true);
-  ts.add(1, 3000, [&](void *) { blink2(); }, nullptr, true);
+  ts.add(0, 1000, [](void *) { blink1(); }, nullptr, true);
+  ts.add(1, 3000, [](void *) { blink2(); }, nullptr, true);
 }
 
 void loop() {
