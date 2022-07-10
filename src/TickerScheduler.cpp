@@ -21,8 +21,10 @@ TickerScheduler::~TickerScheduler()
 
 void TickerScheduler::handleTickerFlag(bool * flag)
 {
-	if (!*flag)
+	if (!*flag) 
+    {
 		*flag = true;
+    }
 }
 
 void TickerScheduler::handleTicker(tscallback_t f, void * arg, bool * flag)
@@ -40,7 +42,9 @@ void TickerScheduler::handleTicker(tscallback_t f, void * arg, bool * flag)
 bool TickerScheduler::add(uint8_t i, uint32_t period, tscallback_t f, void* arg, boolean shouldFireNow)
 {
     if (i >= this->size || this->items[i].is_used)
+    {
         return false;
+    }
 
     this->items[i].cb = f;
     this->items[i].cb_arg = arg;
@@ -56,7 +60,9 @@ bool TickerScheduler::add(uint8_t i, uint32_t period, tscallback_t f, void* arg,
 bool TickerScheduler::remove(uint8_t i)
 {
     if (i >= this->size || !this->items[i].is_used)
+    {
         return false;
+    }
 
     this->items[i].is_used = false;
     this->items[i].t.detach();
@@ -69,7 +75,9 @@ bool TickerScheduler::remove(uint8_t i)
 bool TickerScheduler::disable(uint8_t i)
 {
     if (i >= this->size || !this->items[i].is_used)
+    {
         return false;
+    }
 
     this->items[i].t.detach();
 
@@ -79,7 +87,9 @@ bool TickerScheduler::disable(uint8_t i)
 bool TickerScheduler::enable(uint8_t i)
 {
     if (i >= this->size || !this->items[i].is_used)
+    {
         return false;
+    }
 
 	bool * flag = &this->items[i].flag;
 	this->items[i].t.attach_ms(this->items[i].period, TickerScheduler::handleTickerFlag, flag);
@@ -90,13 +100,17 @@ bool TickerScheduler::enable(uint8_t i)
 void TickerScheduler::disableAll()
 {
     for (uint8_t i = 0; i < this->size; i++)
+    {
         disable(i);
+    }
 }
 
 void TickerScheduler::enableAll()
 {
     for (uint8_t i = 0; i < this->size; i++)
+    {
         enable(i);
+    }   
 }
 
 void TickerScheduler::update()
