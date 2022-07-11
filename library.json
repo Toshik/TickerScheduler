@@ -1,8 +1,8 @@
 {
   "name": "TickerScheduler",
-  "version": "1.0.1",
-  "description": "Simple scheduler for Arduino based boards. On ESP8266 & ESP32 it utilizes Ticker.",
-  "keywords": "Scheduler Ticker Timing",
+  "version": "1.0.2",
+  "description": "Simple scheduler for Arduino based boards. On ESP8266 & ESP32 it utilizes native Ticker.",
+  "keywords": "schedule,scheduler,task,event,manager,ticker,timer,library,arduino",
   "repository":
   {
     "type": "git",
